@@ -18,6 +18,18 @@ request ──▶ GATHER (Sonnet) ──▶ ANALYZE (Opus) ──▶ build_repor
 - `ANALYZE.md` — Opus analysis instructions → `<slug>.data.json`.
 - `example.data.json` — a tiny valid example (build it to see the format render).
 
+## Before you start — ask clarifying questions if it helps the search
+If anything about the request is ambiguous or under-specified, **ask the user
+clarifying questions before gathering** — a sharper brief means a better, more
+targeted search (and avoids wasted agent runs). Ask when it would materially change
+which listings/comps you pull, e.g.: exact sub-areas/ZIPs to include or exclude;
+firm vs. stretch budget; must-haves vs. nice-to-haves and their priority; property
+type (detached only? condo/co-op/townhouse OK?); style flexibility; min beds/baths/
+sqft/lot; commute anchors and target arrival times; new-construction vs. fixer
+appetite; timeline. Skip the questions when the request already answers them — don't
+gate an obvious search on ceremony. Use the multiple-choice question tool where
+possible, and offer sensible defaults.
+
 ## Run it (model routing)
 1. **Gather (Sonnet subagents — fan out by town).** Spawn **multiple Sonnet agents
    in parallel**, one per town/cluster, plus one facts agent. Each writes a shard

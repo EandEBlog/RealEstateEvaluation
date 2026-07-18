@@ -8,13 +8,34 @@ this into the final `<slug>.data.json` later.
 - Area(s) + ZIPs, property type, budget, must-haves, style preference.
 
 ## Tools
-- `mcp__workspace__web_fetch` on Homes.com (best structured output; REBNY/MLS feed).
-- `WebSearch` for market overview facts (schools, taxes, safety, commute).
+- `mcp__workspace__web_fetch` for listing pages, and `WebSearch` for both finding
+  listings and gathering market-overview facts (schools, taxes, safety, commute).
 - If a page exceeds the token cap, the result is saved to a file — `Grep` it
   (price/`Beds`/`Sq Ft`/`Built`/style/`basement` lines) and `Grep` the
-  `homes.com/property/...-ny/<id>/ "<address>` lines to map address↔URL by line proximity.
+  `property/...-ny/<id>/ "<address>` lines to map address↔URL by line proximity.
 
-## Homes.com URL patterns
+## Cast a WIDE net — search ALL available listing sites
+Do NOT limit yourself to one site. Run a broad, extensive search and cross-reference
+across every listing source you can access, so no in-budget match is missed:
+- **Aggregators / portals:** Homes.com, Zillow, Redfin, Realtor.com, Trulia,
+  StreetEasy, PropertyShark, Movoto, Rocket Homes, Homesnap.
+- **Brokerages:** Compass, Douglas Elliman, Corcoran, Keller Williams, RE/MAX,
+  Coldwell Banker, Berkshire Hathaway, Sotheby's, and strong local/independent
+  brokers for the target area.
+- **Also try:** county/MLS public search, FSBO sites, auction/foreclosure listings,
+  and neighborhood-specific real-estate blogs/agent sold lists for comps.
+- Use `WebSearch` with queries like `"<area> <style> houses for sale <budget>"`,
+  `"<area> sold homes <year>"`, `site:zillow.com <area> ...`, etc., then fetch the
+  most promising results.
+- **De-dupe across sites** (same home is listed on many) by address; keep the source
+  with the richest description + a working `url`.
+- **Reliability note:** Homes.com tends to give the cleanest structured output via
+  `web_fetch`; some sites are JavaScript-rendered and `web_fetch` may return a thin
+  shell — if so, try another site for the same listing rather than guessing. **Never
+  bypass a blocked/failed fetch with curl/wget/other HTTP methods** — just use a
+  different accessible source. Breadth of sources matters more than any single site.
+
+## Homes.com URL patterns (a reliable starting point — but also search the sites above)
 - City sold:  `https://www.homes.com/<city>-ny/sold/`
 - City for-sale (houses): `https://www.homes.com/<city>-ny/houses-for-sale/`
 - Queens neighborhoods: `https://www.homes.com/queens-ny/<hood>-neighborhood/sold/`
